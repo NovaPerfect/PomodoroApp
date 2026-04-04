@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "748169851498",
+    "project_id": "nekodoro-d2b79",
+    "storage_bucket": "nekodoro-d2b79.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:748169851498:android:62c7d881823908bd9f1013",
+        "android_client_info": {
+          "package_name": "com.novaperfect.nekodoro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "748169851498-8p06q1ed52ucd6achlkm8amftcnfk4bl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.novaperfect.nekodoro",
+            "certificate_hash": "8c599c52b4d7edec0071df91a2f9dd1b5d253a2f"
+          }
+        },
+        {
+          "client_id": "748169851498-98tveglddb0o9p6sbnemkiadghu30qod.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.novaperfect.nekodoro",
+            "certificate_hash": "0eb88d95578fdff4f7c9c29ee7b49a22edf37705"
+          }
+        },
+        {
+          "client_id": "748169851498-mvoa27ohdh0qagnroa302fnbpacdb99n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.novaperfect.nekodoro",
+            "certificate_hash": "85acd7ce0663d6953862f41156d21bd32a4f0b85"
+          }
+        },
+        {
+          "client_id": "748169851498-mp894h7lhsemcans9f8cs1cp5rm0p6bc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDy0Jl2XL2l209cFFWIzlJDsQWA3dy8euM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "748169851498-mp894h7lhsemcans9f8cs1cp5rm0p6bc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
