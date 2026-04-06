@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../screens/timer_screen.dart';
 import '../screens/todo_screen.dart';
 import '../screens/diary_screen.dart';
 import '../screens/music_screen.dart';
 import '../screens/stats_screen.dart';
 import '../screens/settings_screen.dart';
+import '../screens/premium_screen.dart';
 import '../services/audio_service.dart';
 import '../theme/app_theme.dart';
-import 'package:untitled/l10n/app_localizations.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
@@ -29,6 +28,7 @@ class _MainNavigationState extends State<MainNavigation> {
     Icons.music_note_outlined,
     Icons.bar_chart_rounded,
     Icons.settings_outlined,
+    Icons.workspace_premium_outlined,
   ];
 
   @override
@@ -45,9 +45,6 @@ class _MainNavigationState extends State<MainNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    // This will force a rebuild when language changes
-    final l10n = AppLocalizations.of(context)!;
-
     return Scaffold(
       body: Column(
         children: [
@@ -62,11 +59,10 @@ class _MainNavigationState extends State<MainNavigation> {
                 children: List.generate(_icons.length, (i) {
                   final isActive = i == _currentIndex;
                   return GestureDetector(
-                    onTap: () => _pageController.animateToPage(
-                      i,
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                    ),
+                    onTap: () {
+                      setState(() => _currentIndex = i);
+                      _pageController.jumpToPage(i);
+                    },
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 200),
                       padding: const EdgeInsets.all(10),
@@ -104,6 +100,7 @@ class _MainNavigationState extends State<MainNavigation> {
                 MusicScreen(),
                 StatsScreen(),
                 SettingsScreen(),
+                PremiumScreen(),
               ],
             ),
           ),

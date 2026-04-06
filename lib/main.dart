@@ -12,6 +12,7 @@ import 'theme/app_theme.dart';
 import 'widgets/bottom_nav.dart';
 import 'services/timer_service.dart';
 import 'services/locale_service.dart';
+import 'services/premium_service.dart';
 import 'package:untitled/l10n/app_localizations.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 
@@ -33,12 +34,16 @@ void main() async {
 
   AudioService().init();
 
+  final premiumService = PremiumService();
+  await premiumService.init();
+
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: localeService),
         ChangeNotifierProvider.value(value: timerService),
         ChangeNotifierProvider.value(value: AuthService()),
+        ChangeNotifierProvider.value(value: premiumService),
       ],
       child: const MyApp(),
     ),

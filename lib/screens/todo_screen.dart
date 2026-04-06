@@ -232,9 +232,7 @@ class _TodoScreenState extends State<TodoScreen> {
                   }
 
                   final todos = snapshot.data ?? [];
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    if (mounted) setState(() => _currentTodos = todos);
-                  });
+                  _currentTodos = todos;
                   final undoneTodos = todos.where((t) => !t.isDone).toList();
                   final doneTodos = todos.where((t) => t.isDone).toList();
                   final sorted = [...undoneTodos, ...doneTodos];

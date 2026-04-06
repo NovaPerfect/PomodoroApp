@@ -91,6 +91,13 @@ class _MusicScreenState extends State<MusicScreen> {
                       builder: (_) => PlaylistDetailScreen(playlist: _playlists[i]),
                     ),
                   ),
+                  onPlay: () {
+                    if (_audio.playlistName == _playlists[i].name && _audio.isPlaying) {
+                      _audio.playPause();
+                    } else {
+                      _audio.playPlaylist(_playlists[i]);
+                    }
+                  },
                 ),
                 childCount: _playlists.length,
               ),
@@ -108,11 +115,13 @@ class _PlaylistCard extends StatelessWidget {
   final PlaylistModel playlist;
   final bool isPlaying;
   final VoidCallback onTap;
+  final VoidCallback onPlay;
 
   const _PlaylistCard({
     required this.playlist,
     required this.isPlaying,
     required this.onTap,
+    required this.onPlay,
   });
 
   @override
@@ -140,7 +149,7 @@ class _PlaylistCard extends StatelessWidget {
               Image.asset(
                 playlist.imagePath,
                 fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => Container(
+                errorBuilder: (context2, err, stack) => Container(
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(colors: [AppColors.accent2, AppColors.accent]),
                   ),
@@ -177,16 +186,19 @@ class _PlaylistCard extends StatelessWidget {
                           style: TextStyle(color: Colors.white.withValues(alpha: 0.8), fontSize: 12),
                         ),
                         const Spacer(),
-                        Container(
-                          width: 44, height: 44,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: isPlaying ? AppColors.accent : Colors.white.withValues(alpha: 0.2),
-                          ),
-                          child: Icon(
-                            isPlaying ? Icons.pause_rounded : Icons.play_arrow_rounded,
-                            color: Colors.white,
-                            size: 26,
+                        GestureDetector(
+                          onTap: onPlay,
+                          child: Container(
+                            width: 44, height: 44,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: isPlaying ? AppColors.accent : Colors.white.withValues(alpha: 0.2),
+                            ),
+                            child: Icon(
+                              isPlaying ? Icons.pause_rounded : Icons.play_arrow_rounded,
+                              color: Colors.white,
+                              size: 26,
+                            ),
                           ),
                         ),
                       ],
