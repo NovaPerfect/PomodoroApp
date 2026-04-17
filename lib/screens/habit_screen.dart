@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
+import '../l10n/app_localizations.dart';
 import '../models/habit_model.dart';
 import '../repositories/habit_repository.dart';
 import '../theme/app_theme.dart';
@@ -26,6 +28,8 @@ class _HabitScreenState extends State<HabitScreen> {
   }
 
   void _showAddDialog() {
+    final l10n   = AppLocalizations.of(context)!;
+    final locale = Localizations.localeOf(context).toString();
     String emoji = '⭐';
     String type = 'daily';
     int color = 0xFFE8A0BF;
@@ -34,7 +38,9 @@ class _HabitScreenState extends State<HabitScreen> {
 
     final nameCtrl = TextEditingController();
     final targetCtrl = TextEditingController(text: '1');
-    const dayLabels = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+    // Локализованные короткие названия дней через DateFormat
+    final dayLabels = List.generate(7,
+        (i) => DateFormat('EEE', locale).format(DateTime(2024, 1, 1 + i)));
 
     final emojis = ['⭐', '💪', '📚', '🏃', '💧', '🧘', '🎯', '✏️', '🍎', '😴'];
     final colors = [
@@ -50,8 +56,8 @@ class _HabitScreenState extends State<HabitScreen> {
           backgroundColor: AppColors.surface,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          title: const Text('Новая привычка',
-              style: TextStyle(
+          title: Text(l10n.newHabit,
+              style: const TextStyle(
                   color: AppColors.textPrimary, fontWeight: FontWeight.w700)),
           content: SingleChildScrollView(
             child: Column(
@@ -65,7 +71,7 @@ class _HabitScreenState extends State<HabitScreen> {
                   style: const TextStyle(color: AppColors.textPrimary),
                   cursorColor: AppColors.accent,
                   decoration: InputDecoration(
-                    hintText: 'Название привычки',
+                    hintText: l10n.habitNameHint,
                     hintStyle:
                         const TextStyle(color: AppColors.textMuted),
                     enabledBorder: OutlineInputBorder(
@@ -83,7 +89,7 @@ class _HabitScreenState extends State<HabitScreen> {
                 const SizedBox(height: 16),
 
                 // Emoji picker
-                const Text('Иконка',
+                Text(l10n.habitIcon,
                     style: TextStyle(
                         color: AppColors.textMuted, fontSize: 12)),
                 const SizedBox(height: 8),
@@ -99,7 +105,7 @@ class _HabitScreenState extends State<HabitScreen> {
                         decoration: BoxDecoration(
                           color: selected
                               ? AppColors.accent.withValues(alpha: 0.2)
-                              : Colors.white.withValues(alpha: 0.06),
+                              : AppColors.surfaceAlt,
                           borderRadius: BorderRadius.circular(10),
                           border: selected
                               ? Border.all(color: AppColors.accent)
@@ -115,7 +121,7 @@ class _HabitScreenState extends State<HabitScreen> {
                 const SizedBox(height: 16),
 
                 // Color picker
-                const Text('Цвет',
+                Text(l10n.habitColor,
                     style: TextStyle(
                         color: AppColors.textMuted, fontSize: 12)),
                 const SizedBox(height: 8),
@@ -143,7 +149,7 @@ class _HabitScreenState extends State<HabitScreen> {
                 const SizedBox(height: 16),
 
                 // Type
-                const Text('Тип',
+                Text(l10n.habitType,
                     style: TextStyle(
                         color: AppColors.textMuted, fontSize: 12)),
                 const SizedBox(height: 8),
@@ -151,16 +157,16 @@ class _HabitScreenState extends State<HabitScreen> {
                   spacing: 8,
                   runSpacing: 8,
                   children: [
-                    _typeChip('daily', 'Каждый день', type, (v) => setS(() => type = v)),
-                    _typeChip('weekly', 'По дням', type, (v) => setS(() => type = v)),
-                    _typeChip('counter', 'Счётчик', type, (v) => setS(() => type = v)),
+                    _typeChip('daily', l10n.habitTypeDaily, type, (v) => setS(() => type = v)),
+                    _typeChip('weekly', l10n.habitTypeWeekly, type, (v) => setS(() => type = v)),
+                    _typeChip('counter', l10n.habitTypeCounter, type, (v) => setS(() => type = v)),
                   ],
                 ),
 
                 // Weekly: day selector
                 if (type == 'weekly') ...[
                   const SizedBox(height: 12),
-                  const Text('Дни недели',
+                  Text(l10n.habitWeekDays,
                       style: TextStyle(color: AppColors.textMuted, fontSize: 12)),
                   const SizedBox(height: 8),
                   Row(
@@ -183,7 +189,7 @@ class _HabitScreenState extends State<HabitScreen> {
                             shape: BoxShape.circle,
                             color: selected
                                 ? Color(color).withValues(alpha: 0.8)
-                                : Colors.white.withValues(alpha: 0.07),
+                                : AppColors.surfaceAlt,
                             border: selected
                                 ? Border.all(color: Color(color), width: 1.5)
                                 : null,
@@ -205,7 +211,7 @@ class _HabitScreenState extends State<HabitScreen> {
                 // Counter: target
                 if (type == 'counter') ...[
                   const SizedBox(height: 12),
-                  const Text('Цель в день',
+                  Text(l10n.habitGoalPerDay,
                       style: TextStyle(color: AppColors.textMuted, fontSize: 12)),
                   const SizedBox(height: 8),
                   TextField(
@@ -215,7 +221,7 @@ class _HabitScreenState extends State<HabitScreen> {
                     cursorColor: AppColors.accent,
                     onChanged: (v) => targetCount = int.tryParse(v) ?? 1,
                     decoration: InputDecoration(
-                      hintText: 'Например: 8 (стаканов воды)',
+                      hintText: l10n.habitGoalHint,
                       hintStyle: const TextStyle(color: AppColors.textMuted, fontSize: 12),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -234,8 +240,8 @@ class _HabitScreenState extends State<HabitScreen> {
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(ctx),
-              child: const Text('Отмена',
-                  style: TextStyle(color: AppColors.textMuted)),
+              child: Text(l10n.cancel,
+                  style: const TextStyle(color: AppColors.textMuted)),
             ),
             TextButton(
               onPressed: () {
@@ -255,8 +261,8 @@ class _HabitScreenState extends State<HabitScreen> {
                 _repo.addHabit(widget.uid, habit);
                 Navigator.pop(ctx);
               },
-              child: const Text('Добавить',
-                  style: TextStyle(color: AppColors.accent)),
+              child: Text(l10n.add,
+                  style: const TextStyle(color: AppColors.accent)),
             ),
           ],
         ),
@@ -274,7 +280,7 @@ class _HabitScreenState extends State<HabitScreen> {
         decoration: BoxDecoration(
           color: active
               ? AppColors.accent.withValues(alpha: 0.2)
-              : Colors.white.withValues(alpha: 0.07),
+              : AppColors.surfaceAlt,
           borderRadius: BorderRadius.circular(8),
           border: active ? Border.all(color: AppColors.accent) : null,
         ),
@@ -290,42 +296,23 @@ class _HabitScreenState extends State<HabitScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      body: SafeArea(
-        top: false,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-              child: Row(
-                children: [
-                  IconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: const Icon(Icons.arrow_back_ios_rounded,
-                        color: AppColors.textMuted, size: 20),
-                    padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(),
-                  ),
-                  const SizedBox(width: 12),
-                  const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Привычки',
-                          style: TextStyle(
-                              color: AppColors.textPrimary,
-                              fontSize: 24,
-                              fontWeight: FontWeight.w700)),
-                      Text('Последние 5 недель',
-                          style: TextStyle(
-                              color: AppColors.textMuted, fontSize: 12)),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 16),
-            Expanded(
+      backgroundColor: AppColors.background,
+      appBar: AppBar(
+        title: Text(l10n.habits),
+        backgroundColor: AppColors.surface,
+        elevation: 0,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1),
+          child: Container(height: 1, color: AppColors.divider),
+        ),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 16),
+          Expanded(
               child: StreamBuilder<List<HabitModel>>(
                 stream: _repo.watchHabits(widget.uid),
                 builder: (context, snap) {
@@ -342,9 +329,9 @@ class _HabitScreenState extends State<HabitScreen> {
                           const Text('(´• ω •`)',
                               style: TextStyle(fontSize: 32)),
                           const SizedBox(height: 12),
-                          Text('Добавь первую привычку',
-                              style: TextStyle(
-                                  color: Colors.white.withValues(alpha: 0.4),
+                          Text(AppLocalizations.of(context)!.addFirstHabit,
+                              style: const TextStyle(
+                                  color: AppColors.textMuted,
                                   fontSize: 14)),
                         ],
                       ),
@@ -365,7 +352,6 @@ class _HabitScreenState extends State<HabitScreen> {
             ),
           ],
         ),
-      ),
       floatingActionButton: FloatingActionButton(
         onPressed: _showAddDialog,
         backgroundColor: AppColors.accent,
@@ -493,7 +479,9 @@ class _HabitCard extends StatelessWidget {
 
   Widget _buildGrid(Map<String, int> logMap, BuildContext context) {
     const gap = 4.0;
-    final dayLabels = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
+    final locale = Localizations.localeOf(context).toString();
+    final dayLabels = List.generate(
+        7, (i) => DateFormat('EEE', locale).format(DateTime(2024, 1, 1 + i)));
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -509,8 +497,8 @@ class _HabitCard extends StatelessWidget {
               child: Text(
                 dayLabels[col],
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white.withValues(alpha: 0.3),
+                style: const TextStyle(
+                  color: AppColors.textMuted,
                   fontSize: 9,
                   fontWeight: FontWeight.w600,
                 ),
@@ -537,7 +525,7 @@ class _HabitCard extends StatelessWidget {
               final weekday = day.weekday; // 1=Mon..7=Sun
               final isApplicable = habit.type != 'weekly' || habit.weekDays.contains(weekday);
               final done = count >= habit.targetCount && isApplicable;
-              final canTap = !isFuture && isApplicable;
+              final canTap = isToday && isApplicable;
 
               return GestureDetector(
                 onTap: canTap
@@ -561,8 +549,8 @@ class _HabitCard extends StatelessWidget {
                         : done
                             ? Color(habit.color).withValues(alpha: 0.85)
                             : isFuture
-                                ? Colors.white.withValues(alpha: 0.03)
-                                : Colors.white.withValues(alpha: 0.08),
+                                ? AppColors.divider.withValues(alpha: 0.3)
+                                : AppColors.divider,
                     border: isToday && isApplicable
                         ? Border.all(color: Color(habit.color), width: 2)
                         : null,

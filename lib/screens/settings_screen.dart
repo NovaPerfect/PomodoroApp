@@ -112,7 +112,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               const SizedBox(height: 32),
 
               // --- помодоро ---
-              _buildSectionTitle('Pomodoro'),
+              _buildSectionTitle(l10n.pomodoroSection),
               const SizedBox(height: 12),
               Container(
                 padding: const EdgeInsets.all(16),
@@ -148,7 +148,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               const SizedBox(height: 32),
 
               // --- громкость ---
-              _buildSectionTitle('Громкость'),
+              _buildSectionTitle(l10n.volumeSection),
               const SizedBox(height: 12),
               Container(
                 padding: const EdgeInsets.all(16),
@@ -160,7 +160,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   children: [
                     // громкость плеера
                     _buildSlider(
-                      label: 'Плеер',
+                      label: l10n.playerVolume,
                       icon: Icons.music_note_outlined,
                       value: _playerVolume,
                       min: 0.0,
@@ -177,7 +177,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
                     // системная громкость
                     _buildSlider(
-                      label: 'Система',
+                      label: l10n.systemVolume,
                       icon: Icons.volume_up_outlined,
                       value: _systemVolume,
                       min: 0.0,
@@ -196,7 +196,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               const SizedBox(height: 32),
 
               // --- аккаунт ---
-              _buildSectionTitle('Account'),
+              _buildSectionTitle(l10n.accountSection),
               const SizedBox(height: 12),
               Container(
                 decoration: BoxDecoration(
@@ -204,7 +204,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: _buildListTile(
-                  title: 'Sign Out',
+                  title: l10n.signOut,
                   trailing: const Icon(Icons.logout_rounded,
                       color: Colors.redAccent, size: 18),
                   onTap: () => authService.signOut(),

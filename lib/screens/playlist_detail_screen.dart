@@ -22,12 +22,6 @@ class _PlaylistDetailScreenState extends State<PlaylistDetailScreen> {
     });
   }
 
-  String _fmt(int seconds) {
-    final m = (seconds ~/ 60).toString().padLeft(2, '0');
-    final s = (seconds  % 60).toString().padLeft(2, '0');
-    return '$m:$s';
-  }
-
   bool get _isThisPlaylist => _audio.playlistName == widget.playlist.name;
 
   @override
@@ -49,7 +43,7 @@ class _PlaylistDetailScreenState extends State<PlaylistDetailScreen> {
                   child: Image.asset(
                     playlist.imagePath,
                     fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) => Container(
+                    errorBuilder: (_, _, _) => Container(
                       decoration: const BoxDecoration(
                         gradient: LinearGradient(
                           colors: [AppColors.accent2, AppColors.accent],

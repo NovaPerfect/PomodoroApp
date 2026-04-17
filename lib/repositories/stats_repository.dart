@@ -5,6 +5,7 @@ class StatsData {
   final DateTime date;
   final int focusSeconds;
   final int sessionsCount;
+  final int startedSessions; // сколько раз запускал таймер (для completion rate)
   final List<String> completedTodos;
   final List<String> completedTodoIds;
 
@@ -13,6 +14,7 @@ class StatsData {
     required this.date,
     required this.focusSeconds,
     required this.sessionsCount,
+    required this.startedSessions,
     required this.completedTodos,
     required this.completedTodoIds,
   });
@@ -23,6 +25,7 @@ class StatsData {
       date: (map['date'] as Timestamp?)?.toDate() ?? DateTime.now(),
       focusSeconds: map['focusSeconds'] as int? ?? 0,
       sessionsCount: map['sessionsCount'] as int? ?? 0,
+      startedSessions: map['startedSessions'] as int? ?? 0,
       completedTodos: List<String>.from(map['completedTodos'] ?? []),
       completedTodoIds: List<String>.from(map['completedTodoIds'] ?? []),
     );
@@ -63,6 +66,26 @@ class StatsRepository {
         'date': Timestamp.fromDate(DateTime(today.year, today.month, today.day)),
         'focusSeconds': seconds,
         'sessionsCount': countSession ? 1 : 0,
+        'startedSessions': 0,
+        'completedTodos': [],
+        'completedTodoIds': [],
+      });
+    }
+  }
+
+  /// Вызывается при каждом свежем запуске таймера (не возобновлении после паузы).
+  Future<void> incrementStartedSession(String uid, String key) async {
+    final ref = _col(uid).doc(key);
+    final doc = await ref.get();
+    if (doc.exists) {
+      await ref.update({'startedSessions': FieldValue.increment(1)});
+    } else {
+      final today = DateTime.now();
+      await ref.set({
+        'date': Timestamp.fromDate(DateTime(today.year, today.month, today.day)),
+        'focusSeconds': 0,
+        'sessionsCount': 0,
+        'startedSessions': 1,
         'completedTodos': [],
         'completedTodoIds': [],
       });

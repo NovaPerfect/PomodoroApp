@@ -333,6 +333,426 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'pomodoro'**
   String get pomodoro;
+
+  /// No description provided for @signIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign In'**
+  String get signIn;
+
+  /// No description provided for @signUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Up'**
+  String get signUp;
+
+  /// No description provided for @termsOfService.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Service'**
+  String get termsOfService;
+
+  /// No description provided for @privacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacyPolicy;
+
+  /// No description provided for @loginBubble1.
+  ///
+  /// In en, this message translates to:
+  /// **'Time to focus! 🍅\nStarting Pomodoro...'**
+  String get loginBubble1;
+
+  /// No description provided for @loginBubble2.
+  ///
+  /// In en, this message translates to:
+  /// **'I can\'t, I\'m so distracted 😩'**
+  String get loginBubble2;
+
+  /// No description provided for @loginBubble3.
+  ///
+  /// In en, this message translates to:
+  /// **'Just 25 minutes of focus.\nYou can do it! I\'ll be here 🐱'**
+  String get loginBubble3;
+
+  /// No description provided for @loginBubble4.
+  ///
+  /// In en, this message translates to:
+  /// **'Okay, let\'s try'**
+  String get loginBubble4;
+
+  /// No description provided for @loginBubble5.
+  ///
+  /// In en, this message translates to:
+  /// **'Great! Put down your phone\nand open your textbook. Let\'s go! ✨'**
+  String get loginBubble5;
+
+  /// No description provided for @pomodoroSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Pomodoro'**
+  String get pomodoroSection;
+
+  /// No description provided for @volumeSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Volume'**
+  String get volumeSection;
+
+  /// No description provided for @playerVolume.
+  ///
+  /// In en, this message translates to:
+  /// **'Player'**
+  String get playerVolume;
+
+  /// No description provided for @systemVolume.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get systemVolume;
+
+  /// No description provided for @accountSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get accountSection;
+
+  /// No description provided for @signOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Out'**
+  String get signOut;
+
+  /// No description provided for @moodTerrible.
+  ///
+  /// In en, this message translates to:
+  /// **'Terrible'**
+  String get moodTerrible;
+
+  /// No description provided for @moodBad.
+  ///
+  /// In en, this message translates to:
+  /// **'Bad'**
+  String get moodBad;
+
+  /// No description provided for @moodOkay.
+  ///
+  /// In en, this message translates to:
+  /// **'Okay'**
+  String get moodOkay;
+
+  /// No description provided for @moodGood.
+  ///
+  /// In en, this message translates to:
+  /// **'Good'**
+  String get moodGood;
+
+  /// No description provided for @moodGreat.
+  ///
+  /// In en, this message translates to:
+  /// **'Great'**
+  String get moodGreat;
+
+  /// No description provided for @habits.
+  ///
+  /// In en, this message translates to:
+  /// **'Habits'**
+  String get habits;
+
+  /// No description provided for @newHabit.
+  ///
+  /// In en, this message translates to:
+  /// **'New habit'**
+  String get newHabit;
+
+  /// No description provided for @habitNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Habit name'**
+  String get habitNameHint;
+
+  /// No description provided for @habitIcon.
+  ///
+  /// In en, this message translates to:
+  /// **'Icon'**
+  String get habitIcon;
+
+  /// No description provided for @habitColor.
+  ///
+  /// In en, this message translates to:
+  /// **'Color'**
+  String get habitColor;
+
+  /// No description provided for @habitType.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get habitType;
+
+  /// No description provided for @habitWeekDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Days of week'**
+  String get habitWeekDays;
+
+  /// No description provided for @habitGoalPerDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal per day'**
+  String get habitGoalPerDay;
+
+  /// No description provided for @last5Weeks.
+  ///
+  /// In en, this message translates to:
+  /// **'Last 5 weeks'**
+  String get last5Weeks;
+
+  /// No description provided for @addFirstHabit.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your first habit'**
+  String get addFirstHabit;
+
+  /// No description provided for @habitTypeDaily.
+  ///
+  /// In en, this message translates to:
+  /// **'Every day'**
+  String get habitTypeDaily;
+
+  /// No description provided for @habitTypeWeekly.
+  ///
+  /// In en, this message translates to:
+  /// **'By days'**
+  String get habitTypeWeekly;
+
+  /// No description provided for @habitTypeCounter.
+  ///
+  /// In en, this message translates to:
+  /// **'Counter'**
+  String get habitTypeCounter;
+
+  /// No description provided for @habitGoalHint.
+  ///
+  /// In en, this message translates to:
+  /// **'E.g.: 8 (glasses of water)'**
+  String get habitGoalHint;
+
+  /// No description provided for @premiumUnlockSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock all features\nfor productive learning'**
+  String get premiumUnlockSubtitle;
+
+  /// No description provided for @habitTrackerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Habit Tracker'**
+  String get habitTrackerTitle;
+
+  /// No description provided for @habitTrackerPaywallSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily, weekly, counters'**
+  String get habitTrackerPaywallSubtitle;
+
+  /// No description provided for @achievementsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Achievements'**
+  String get achievementsTitle;
+
+  /// No description provided for @achievementsPaywallSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Earn points and unlock customization'**
+  String get achievementsPaywallSubtitle;
+
+  /// No description provided for @extendedStatsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Extended Statistics'**
+  String get extendedStatsTitle;
+
+  /// No description provided for @extendedStatsPaywallSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Charts, trends and detailed analytics'**
+  String get extendedStatsPaywallSubtitle;
+
+  /// No description provided for @tryPremium.
+  ///
+  /// In en, this message translates to:
+  /// **'Try Premium'**
+  String get tryPremium;
+
+  /// No description provided for @testAccessFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Test access — free'**
+  String get testAccessFree;
+
+  /// No description provided for @premiumExclusiveFeatures.
+  ///
+  /// In en, this message translates to:
+  /// **'Your exclusive features'**
+  String get premiumExclusiveFeatures;
+
+  /// No description provided for @habitTrackerPremiumSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily goals and streak'**
+  String get habitTrackerPremiumSubtitle;
+
+  /// No description provided for @achievementsComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming soon — earn points and unlock customization'**
+  String get achievementsComingSoon;
+
+  /// No description provided for @extendedStatsPremiumSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly results · Records · Trends'**
+  String get extendedStatsPremiumSubtitle;
+
+  /// No description provided for @comingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming soon'**
+  String get comingSoon;
+
+  /// No description provided for @revokePremiumTest.
+  ///
+  /// In en, this message translates to:
+  /// **'Revoke Premium (test)'**
+  String get revokePremiumTest;
+
+  /// No description provided for @thisWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'This week'**
+  String get thisWeek;
+
+  /// No description provided for @lastWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Last week'**
+  String get lastWeek;
+
+  /// No description provided for @focusStat.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus'**
+  String get focusStat;
+
+  /// No description provided for @completionRateStat.
+  ///
+  /// In en, this message translates to:
+  /// **'Completion'**
+  String get completionRateStat;
+
+  /// No description provided for @activeDaysStat.
+  ///
+  /// In en, this message translates to:
+  /// **'Active days'**
+  String get activeDaysStat;
+
+  /// No description provided for @personalRecords.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal records'**
+  String get personalRecords;
+
+  /// No description provided for @currentStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Current streak'**
+  String get currentStreak;
+
+  /// No description provided for @bestStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Best streak'**
+  String get bestStreak;
+
+  /// No description provided for @bestDayRecord.
+  ///
+  /// In en, this message translates to:
+  /// **'Best day'**
+  String get bestDayRecord;
+
+  /// No description provided for @maxTasksDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Max tasks per day'**
+  String get maxTasksDay;
+
+  /// No description provided for @totalEntries.
+  ///
+  /// In en, this message translates to:
+  /// **'Total entries'**
+  String get totalEntries;
+
+  /// No description provided for @noTasksForPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'No tasks yet'**
+  String get noTasksForPeriod;
+
+  /// No description provided for @noEntriesForPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'No entries yet'**
+  String get noEntriesForPeriod;
+
+  /// No description provided for @startTimerHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Start the timer'**
+  String get startTimerHint;
+
+  /// No description provided for @zeroMin.
+  ///
+  /// In en, this message translates to:
+  /// **'0 min'**
+  String get zeroMin;
+
+  /// No description provided for @activeDaysOf.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} of 7'**
+  String activeDaysOf(int count);
+
+  /// No description provided for @streakDaysLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} d.'**
+  String streakDaysLabel(int count);
+
+  /// No description provided for @vsPrevWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'{delta} vs last week'**
+  String vsPrevWeek(String delta);
+
+  /// No description provided for @sessionsCompletedDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of {total} sessions completed'**
+  String sessionsCompletedDetail(int done, int total);
+
+  /// No description provided for @bestDayDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Best day: {day} ({count})'**
+  String bestDayDetail(String day, int count);
+
+  /// No description provided for @moodAverageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Mood: {mood}'**
+  String moodAverageLabel(String mood);
 }
 
 class _AppLocalizationsDelegate

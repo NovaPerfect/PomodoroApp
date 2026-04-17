@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(flutter analyze:*)",
+      "Bash(flutter pub:*)",
+      "Bash(flutter clean:*)",
+      "Bash(flutter gen-l10n:*)",
+      "Bash(xargs cat:*)",
+      "Bash(find 'C:/Program Files/Android/flutter' -name *.aar -path *engine*)",
+      "Bash(find 'C:/Program Files/Android/flutter' -name *.jar)",
+      "Bash(cd /tmp)",
+      "Bash(jar tf:*)",
+      "Bash(jar xf:*)",
+      "Bash(javap -c io/flutter/embedding/engine/plugins/FlutterPluginRegistry.class)",
+      "Bash(javap -p \"io/flutter/embedding/engine/plugins/FlutterPlugin$FlutterPluginBinding.class\")",
+      "Bash(find io/flutter -name *.class)",
+      "Bash(xargs javap:*)",
+      "Bash(xargs grep:*)",
+      "Bash(javap -verbose io/flutter/embedding/engine/FlutterEngineConnectionRegistry.class)",
+      "Bash(javap -c io/flutter/embedding/engine/FlutterEngineConnectionRegistry.class)",
+      "Bash(grep -n \"^\\\\s*\\\\],\\\\s*$\\\\|^\\\\s*\\\\],\\\\s*//\\\\s*Stack\\\\|Scaffold\\\\|body:\\\\|SafeArea\\\\|Column\" \"D:/Temp/untitled/lib/screens/timer_screen.dart\")",
+      "Bash(dart run:*)"
+    ]
+  }
+}

@@ -7,12 +7,24 @@ import '../theme/app_theme.dart';
 import 'package:untitled/l10n/app_localizations.dart';
 
 const List<Map<String, String>> kMoods = [
-  {'emoji': '😭', 'label': 'Ужасно',    'image': 'assets/images/mood_1.png'},
-  {'emoji': '😞', 'label': 'Плохо',     'image': 'assets/images/mood_2.png'},
-  {'emoji': '😐', 'label': 'Нормально', 'image': 'assets/images/mood_3.png'},
-  {'emoji': '😊', 'label': 'Хорошо',    'image': 'assets/images/mood_4.png'},
-  {'emoji': '🤩', 'label': 'Отлично',   'image': 'assets/images/mood_5.png'},
+  {'emoji': '😭', 'image': 'assets/images/mood_1.png'},
+  {'emoji': '😞', 'image': 'assets/images/mood_2.png'},
+  {'emoji': '😐', 'image': 'assets/images/mood_3.png'},
+  {'emoji': '😊', 'image': 'assets/images/mood_4.png'},
+  {'emoji': '🤩', 'image': 'assets/images/mood_5.png'},
 ];
+
+/// Локализованные названия настроений по индексу (0–4).
+String moodLabel(int index, AppLocalizations l10n) {
+  switch (index) {
+    case 0: return l10n.moodTerrible;
+    case 1: return l10n.moodBad;
+    case 2: return l10n.moodOkay;
+    case 3: return l10n.moodGood;
+    case 4: return l10n.moodGreat;
+    default: return '';
+  }
+}
 
 // ════════════════════════════════════════
 //  ЭКРАН СПИСКА
@@ -459,7 +471,7 @@ class _DiaryEditorScreenState extends State<DiaryEditorScreen> {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              kMoods[i]['label']!,
+                              moodLabel(i, l10n),
                               style: TextStyle(
                                 color: isSelected
                                     ? AppColors.accent
@@ -494,10 +506,12 @@ class _DiaryEditorScreenState extends State<DiaryEditorScreen> {
                   customStyles: DefaultStyles(
                     placeHolder: DefaultTextBlockStyle(
                       TextStyle(
+                        fontFamily: 'Comfortaa',
                         color: AppColors.textMuted,
                         fontSize: 16,
                         fontStyle: FontStyle.italic,
                         height: 1.7,
+                        letterSpacing: 0.2,
                       ),
                       HorizontalSpacing.zero,
                       VerticalSpacing.zero,
@@ -506,9 +520,11 @@ class _DiaryEditorScreenState extends State<DiaryEditorScreen> {
                     ),
                     paragraph: DefaultTextBlockStyle(
                       const TextStyle(
+                        fontFamily: 'Comfortaa',
                         color: AppColors.textPrimary,
                         fontSize: 16,
                         height: 1.7,
+                        letterSpacing: 0.2,
                       ),
                       HorizontalSpacing.zero,
                       VerticalSpacing.zero,
@@ -589,10 +605,14 @@ class _QuillToolbarState extends State<_QuillToolbar> {
     setState(() {});
   }
 
-  String _toHex(Color c) =>
-      '#${c.red.toRadixString(16).padLeft(2, '0')}'
-      '${c.green.toRadixString(16).padLeft(2, '0')}'
-      '${c.blue.toRadixString(16).padLeft(2, '0')}';
+  String _toHex(Color c) {
+    final r = (c.r * 255.0).round().clamp(0, 255);
+    final g = (c.g * 255.0).round().clamp(0, 255);
+    final b = (c.b * 255.0).round().clamp(0, 255);
+    return '#${r.toRadixString(16).padLeft(2, '0')}'
+        '${g.toRadixString(16).padLeft(2, '0')}'
+        '${b.toRadixString(16).padLeft(2, '0')}';
+  }
 
   void _showColorDialog() {
     const textColors = [
@@ -688,29 +708,6 @@ class _QuillToolbarState extends State<_QuillToolbar> {
     );
   }
 
-  void _showAlignMenu(BuildContext ctx) async {
-    final box = ctx.findRenderObject() as RenderBox;
-    final overlay =
-        Navigator.of(ctx).overlay!.context.findRenderObject() as RenderBox;
-    final pos = RelativeRect.fromRect(
-      box.localToGlobal(Offset.zero, ancestor: overlay) & box.size,
-      Offset.zero & overlay.size,
-    );
-    final result = await showMenu<Attribute>(
-      context: ctx,
-      position: pos,
-      color: AppColors.surface,
-      elevation: 8,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      items: [
-        _alignItem(Attribute.leftAlignment, Icons.format_align_left_rounded, 'Left'),
-        _alignItem(Attribute.centerAlignment, Icons.format_align_center_rounded, 'Center'),
-        _alignItem(Attribute.rightAlignment, Icons.format_align_right_rounded, 'Right'),
-        _alignItem(Attribute.justifyAlignment, Icons.format_align_justify_rounded, 'Justify'),
-      ],
-    );
-    if (result != null) widget.controller.formatSelection(result);
-  }
 
   PopupMenuItem<Attribute> _alignItem(
       Attribute attr, IconData icon, String label) {
@@ -745,23 +742,6 @@ class _QuillToolbarState extends State<_QuillToolbar> {
     );
   }
 
-  Widget _customBtn(Widget child, bool active, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 150),
-        width: 36, height: 36,
-        margin: const EdgeInsets.symmetric(horizontal: 2),
-        decoration: BoxDecoration(
-          color: active
-              ? AppColors.accent2.withValues(alpha: 0.15)
-              : Colors.transparent,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Center(child: child),
-      ),
-    );
-  }
 
   Widget _divider() => Container(
         width: 1, height: 20,
@@ -933,7 +913,7 @@ class _MoodIcon extends StatelessWidget {
       imagePath,
       width: size,
       height: size,
-      errorBuilder: (_, __, ___) =>
+      errorBuilder: (_, _, _) =>
           Text(emoji, style: TextStyle(fontSize: size * 0.8)),
     );
   }

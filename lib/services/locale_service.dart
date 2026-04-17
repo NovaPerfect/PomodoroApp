@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -9,18 +10,39 @@ class LocaleService extends ChangeNotifier {
   Locale _locale = const Locale('en');
   static const String _keyLocale = 'selected_locale';
 
+  static const _supported = ['en', 'ru'];
+
   Locale get locale => _locale;
 
   Future<void> init() async {
-    final prefs = await SharedPreferences.getInstance();
-    final String? languageCode = prefs.getString(_keyLocale);
-    if (languageCode != null) {
-      _locale = Locale(languageCode);
-    } else {
-      // Default to English if no preference saved
-      _locale = const Locale('en');
-    }
+    // Login screen always shows system language
+    final systemCode = PlatformDispatcher.instance.locale.languageCode;
+    _locale = _supported.contains(systemCode)
+        ? Locale(systemCode)
+        : const Locale('en');
     notifyListeners();
+  }
+
+  /// Call after login — restores user's saved language preference.
+  Future<void> loadSavedLocale() async {
+    final prefs = await SharedPreferences.getInstance();
+    final saved = prefs.getString(_keyLocale);
+    if (saved != null && _locale.languageCode != saved) {
+      _locale = Locale(saved);
+      notifyListeners();
+    }
+  }
+
+  /// Call on logout — resets to system language so login screen is correct.
+  void resetToSystemLocale() {
+    final systemCode = PlatformDispatcher.instance.locale.languageCode;
+    final next = _supported.contains(systemCode)
+        ? Locale(systemCode)
+        : const Locale('en');
+    if (_locale != next) {
+      _locale = next;
+      notifyListeners();
+    }
   }
 
   Future<void> setLocale(Locale locale) async {

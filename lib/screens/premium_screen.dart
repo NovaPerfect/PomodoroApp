@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../l10n/app_localizations.dart';
 import '../services/premium_service.dart';
 import '../theme/app_theme.dart';
+import 'extended_stats_screen.dart';
 import 'habit_screen.dart';
 
 class PremiumScreen extends StatelessWidget {
@@ -26,6 +28,7 @@ class _Paywall extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final premium = context.read<PremiumService>();
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       body: Container(
@@ -83,7 +86,7 @@ class _Paywall extends StatelessWidget {
                 const SizedBox(height: 10),
 
                 Text(
-                  'Разблокируй все возможности\nдля продуктивного обучения',
+                  l10n.premiumUnlockSubtitle,
                   style: TextStyle(
                     color: Colors.white.withValues(alpha: 0.55),
                     fontSize: 14,
@@ -95,11 +98,11 @@ class _Paywall extends StatelessWidget {
                 const SizedBox(height: 40),
 
                 // Feature list
-                _featureRow('📋', 'Трекер привычек', 'Ежедневные, еженедельные, счётчики'),
+                _featureRow('📋', l10n.habitTrackerTitle, l10n.habitTrackerPaywallSubtitle),
                 const SizedBox(height: 16),
-                _featureRow('🏆', 'Достижения', 'Зарабатывай баллы и открывай кастомизацию'),
+                _featureRow('🏆', l10n.achievementsTitle, l10n.achievementsPaywallSubtitle),
                 const SizedBox(height: 16),
-                _featureRow('📊', 'Расширенная статистика', 'Графики, тренды и детальная аналитика'),
+                _featureRow('📊', l10n.extendedStatsTitle, l10n.extendedStatsPaywallSubtitle),
 
                 const Spacer(),
 
@@ -123,8 +126,8 @@ class _Paywall extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: const Text(
-                        'Попробовать Premium',
+                      child: Text(
+                        l10n.tryPremium,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white,
@@ -139,7 +142,7 @@ class _Paywall extends StatelessWidget {
                 const SizedBox(height: 16),
 
                 Text(
-                  'Тестовый доступ — без оплаты',
+                  l10n.testAccessFree,
                   style: TextStyle(
                     color: Colors.white.withValues(alpha: 0.3),
                     fontSize: 12,
@@ -200,6 +203,7 @@ class _PremiumContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final premium = context.read<PremiumService>();
+    final l10n = AppLocalizations.of(context)!;
     final uid = FirebaseAuth.instance.currentUser?.uid ?? '';
 
     return Scaffold(
@@ -212,7 +216,7 @@ class _PremiumContent extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
                 child: Row(
                   children: [
-                    const Expanded(
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -226,7 +230,7 @@ class _PremiumContent extends StatelessWidget {
                           ),
                           SizedBox(height: 4),
                           Text(
-                            'Твои эксклюзивные возможности',
+                            l10n.premiumExclusiveFeatures,
                             style: TextStyle(
                                 color: AppColors.textMuted, fontSize: 13),
                           ),
@@ -268,8 +272,8 @@ class _PremiumContent extends StatelessWidget {
             SliverToBoxAdapter(
               child: _SectionCard(
                 emoji: '📋',
-                title: 'Трекер привычек',
-                subtitle: 'Ежедневные цели и streak',
+                title: l10n.habitTrackerTitle,
+                subtitle: l10n.habitTrackerPremiumSubtitle,
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -281,24 +285,29 @@ class _PremiumContent extends StatelessWidget {
             const SliverToBoxAdapter(child: SizedBox(height: 12)),
 
             // Achievements section (stub)
-            const SliverToBoxAdapter(
+            SliverToBoxAdapter(
               child: _SectionCard(
                 emoji: '🏆',
-                title: 'Достижения',
-                subtitle: 'Скоро — зарабатывай баллы и открывай кастомизацию',
+                title: l10n.achievementsTitle,
+                subtitle: l10n.achievementsComingSoon,
                 comingSoon: true,
               ),
             ),
 
             const SliverToBoxAdapter(child: SizedBox(height: 12)),
 
-            // Extended stats section (stub)
-            const SliverToBoxAdapter(
+            // Extended stats section
+            SliverToBoxAdapter(
               child: _SectionCard(
                 emoji: '📊',
-                title: 'Расширенная статистика',
-                subtitle: 'Скоро — графики, тренды и детальная аналитика',
-                comingSoon: true,
+                title: l10n.extendedStatsTitle,
+                subtitle: l10n.extendedStatsPremiumSubtitle,
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => ExtendedStatsScreen(uid: uid),
+                  ),
+                ),
               ),
             ),
 
@@ -311,7 +320,7 @@ class _PremiumContent extends StatelessWidget {
                 child: TextButton(
                   onPressed: () => premium.revoke(),
                   child: Text(
-                    'Отменить Premium (тест)',
+                    l10n.revokePremiumTest,
                     style: TextStyle(
                         color: Colors.white.withValues(alpha: 0.25),
                         fontSize: 12),
@@ -387,7 +396,7 @@ class _SectionCard extends StatelessWidget {
                     color: Colors.white.withValues(alpha: 0.07),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Text('Скоро',
+                  child: Text(AppLocalizations.of(context)!.comingSoon,
                       style: TextStyle(
                           color: Colors.white.withValues(alpha: 0.3),
                           fontSize: 10,

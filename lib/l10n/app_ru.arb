@@ -38,5 +38,113 @@
   "min": "мин",
   "sec": "сек",
   "hour": "ч",
-  "pomodoro": "помодоро"
+  "pomodoro": "помодоро",
+
+  "signIn": "Войти",
+  "signUp": "Зарегистрироваться",
+  "termsOfService": "Условия использования",
+  "privacyPolicy": "Политика конфиденциальности",
+  "loginBubble1": "Пора сосредоточиться! 🍅\nЗапускаю Помодоро...",
+  "loginBubble2": "Я не могу, отвлекаюсь 😩",
+  "loginBubble3": "Всего 25 минут фокуса.\nТы справишься! Я буду рядом 🐱",
+  "loginBubble4": "Окей, давай попробуем",
+  "loginBubble5": "Отлично! Убери телефон\nи открой учебник. Вперёд! ✨",
+
+  "pomodoroSection": "Помодоро",
+  "volumeSection": "Громкость",
+  "playerVolume": "Плеер",
+  "systemVolume": "Система",
+  "accountSection": "Аккаунт",
+  "signOut": "Выйти",
+
+  "moodTerrible": "Ужасно",
+  "moodBad": "Плохо",
+  "moodOkay": "Нормально",
+  "moodGood": "Хорошо",
+  "moodGreat": "Отлично",
+
+  "habits": "Привычки",
+  "newHabit": "Новая привычка",
+  "habitNameHint": "Название привычки",
+  "habitIcon": "Иконка",
+  "habitColor": "Цвет",
+  "habitType": "Тип",
+  "habitWeekDays": "Дни недели",
+  "habitGoalPerDay": "Цель в день",
+  "last5Weeks": "Последние 5 недель",
+  "addFirstHabit": "Добавь первую привычку",
+  "habitTypeDaily": "Каждый день",
+  "habitTypeWeekly": "По дням",
+  "habitTypeCounter": "Счётчик",
+  "habitGoalHint": "Например: 8 (стаканов воды)",
+
+  "premiumUnlockSubtitle": "Разблокируй все возможности\nдля продуктивного обучения",
+  "habitTrackerTitle": "Трекер привычек",
+  "habitTrackerPaywallSubtitle": "Ежедневные, еженедельные, счётчики",
+  "achievementsTitle": "Достижения",
+  "achievementsPaywallSubtitle": "Зарабатывай баллы и открывай кастомизацию",
+  "extendedStatsTitle": "Расширенная статистика",
+  "extendedStatsPaywallSubtitle": "Графики, тренды и детальная аналитика",
+  "tryPremium": "Попробовать Premium",
+  "testAccessFree": "Тестовый доступ — без оплаты",
+  "premiumExclusiveFeatures": "Твои эксклюзивные возможности",
+  "habitTrackerPremiumSubtitle": "Ежедневные цели и streak",
+  "achievementsComingSoon": "Скоро — зарабатывай баллы и открывай кастомизацию",
+  "extendedStatsPremiumSubtitle": "Итоги недели · Рекорды · Тренды",
+  "comingSoon": "Скоро",
+  "revokePremiumTest": "Отменить Premium (тест)",
+
+  "thisWeek": "Эта неделя",
+  "lastWeek": "Прошлая",
+  "focusStat": "Фокус",
+  "completionRateStat": "Завершённость",
+  "activeDaysStat": "Активных дней",
+  "personalRecords": "Личные рекорды",
+  "currentStreak": "Текущая серия",
+  "bestStreak": "Лучшая серия",
+  "bestDayRecord": "Рекорд дня",
+  "maxTasksDay": "Макс. задач за день",
+  "totalEntries": "Всего записей",
+  "noTasksForPeriod": "Пока задач нет",
+  "noEntriesForPeriod": "Записей ещё нет",
+  "startTimerHint": "Запусти таймер",
+  "zeroMin": "0 мин",
+  "activeDaysOf": "{count} из 7",
+  "@activeDaysOf": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "streakDaysLabel": "{count} дн.",
+  "@streakDaysLabel": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "vsPrevWeek": "{delta} к прошлой неделе",
+  "@vsPrevWeek": {
+    "placeholders": {
+      "delta": {"type": "String"}
+    }
+  },
+  "sessionsCompletedDetail": "{done} из {total} сессий завершено",
+  "@sessionsCompletedDetail": {
+    "placeholders": {
+      "done": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "bestDayDetail": "Лучший день: {day} ({count})",
+  "@bestDayDetail": {
+    "placeholders": {
+      "day": {"type": "String"},
+      "count": {"type": "int"}
+    }
+  },
+  "moodAverageLabel": "Настроение: {mood}",
+  "@moodAverageLabel": {
+    "placeholders": {
+      "mood": {"type": "String"}
+    }
+  }
 }

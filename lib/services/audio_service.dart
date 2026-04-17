@@ -1,17 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:just_audio/just_audio.dart';
+import 'audio_handler.dart';
 
-class TrackModel {
-  final String title;
-  final String artist;
-  final String assetPath;
-
-  const TrackModel({
-    required this.title,
-    required this.artist,
-    required this.assetPath,
-  });
-}
+// Переэкспортируем TrackInfo под старым именем для совместимости
+typedef TrackModel = TrackInfo;
 
 class PlaylistModel {
   final String name;
@@ -32,7 +23,7 @@ class AudioService extends ChangeNotifier {
   factory AudioService() => _instance;
   AudioService._internal();
 
-  final AudioPlayer player = AudioPlayer();
+  StudyFlowAudioHandler? _handler;
 
   List<TrackModel> _queue       = [];
   int              _index       = 0;
@@ -53,100 +44,90 @@ class AudioService extends ChangeNotifier {
   TrackModel? get currentTrack => hasTrack ? _queue[_index] : null;
   int         get queueLength  => _queue.length;
   int         get currentIndex => _index;
+  // Доступ к нижележащему плееру (для настройки громкости и т.д.)
+  dynamic     get player       => _handler?.player;
 
-  void init() {
-    // ✅ слушаем реальное состояние плеера
-    player.playingStream.listen((playing) {
+  void setHandler(StudyFlowAudioHandler handler) {
+    _handler = handler;
+    final p = handler.player;
+
+    p.playingStream.listen((playing) {
       _isPlaying = playing;
       notifyListeners();
     });
-
-    player.positionStream.listen((pos) {
+    p.positionStream.listen((pos) {
       _position = pos;
       notifyListeners();
     });
-
-    player.durationStream.listen((dur) {
+    p.durationStream.listen((dur) {
       _duration = dur ?? Duration.zero;
       notifyListeners();
     });
-
-    player.playerStateStream.listen((state) {
-      if (state.processingState == ProcessingState.completed) {
-        next();
+    // Синхронизируем индекс после авто-перехода (skipToNext внутри handler)
+    p.playerStateStream.listen((_) {
+      if (_handler != null) {
+        _index = _handler!.currentIndex;
+        notifyListeners();
       }
     });
   }
+
+  // Оставляем для обратной совместимости (если вызывается до setHandler)
+  void init() {}
 
   Future<void> playPlaylist(PlaylistModel playlist, {int startIndex = 0}) async {
     _queue        = playlist.tracks;
     _index        = startIndex;
     _playlistName = playlist.name;
-    await _loadAndPlay();
-  }
-
-  Future<void> _loadAndPlay() async {
-    if (_queue.isEmpty) return;
-    await player.setAsset(_queue[_index].assetPath);
-    await player.play();
-    // ✅ не меняем _isPlaying вручную — playingStream сам обновит
+    await _handler?.loadQueue(playlist.tracks, startIndex);
     notifyListeners();
   }
 
   Future<void> playPause() async {
-    // ✅ проверяем реальное состояние плеера а не _isPlaying
-    if (player.playing) {
-      await player.pause();
+    if (_handler == null) return;
+    if (_handler!.player.playing) {
+      await _handler!.pause();
     } else {
-      await player.play();
+      await _handler!.play();
     }
   }
 
   Future<void> next() async {
-    if (_queue.isEmpty) return;
-    if (_isShuffle) {
-      _index = DateTime.now().millisecondsSinceEpoch % _queue.length;
-    } else {
-      _index = (_index + 1) % _queue.length;
-    }
-    await _loadAndPlay();
+    await _handler?.skipToNext();
+    _index = _handler?.currentIndex ?? _index;
+    notifyListeners();
   }
 
   Future<void> prev() async {
-    if (_queue.isEmpty) return;
-    if (_position.inSeconds > 3) {
-      await player.seek(Duration.zero);
-      return;
-    }
-    _index = (_index - 1 + _queue.length) % _queue.length;
-    await _loadAndPlay();
+    await _handler?.skipToPrevious();
+    _index = _handler?.currentIndex ?? _index;
+    notifyListeners();
   }
 
   Future<void> seek(Duration pos) async {
-    await player.seek(pos);
+    await _handler?.seek(pos);
   }
 
   void toggleShuffle() {
     _isShuffle = !_isShuffle;
+    _handler?.setShuffle(_isShuffle);
     notifyListeners();
   }
 
   Future<void> toggleLoop() async {
     _isLoop = !_isLoop;
-    await player.setLoopMode(_isLoop ? LoopMode.one : LoopMode.off);
+    await _handler?.setLoopMode(_isLoop);
     notifyListeners();
   }
 
   Future<void> initDefaultPlaylist(PlaylistModel playlist) async {
-    try {
-      _queue        = playlist.tracks;
-      _index        = 0;
-      _playlistName = playlist.name;
-      await player.setAsset(_queue[0].assetPath);
-      // ✅ не меняем _isPlaying — плеер стоит на паузе по умолчанию
-      notifyListeners();
-    } catch (e) {
-      debugPrint('initDefaultPlaylist error: $e');
+    _queue        = playlist.tracks;
+    _index        = 0;
+    _playlistName = playlist.name;
+    // Загружаем первый трек, но не играем
+    if (_handler != null) {
+      await _handler!.player.setAsset(playlist.tracks[0].assetPath);
     }
+    notifyListeners();
   }
 }
